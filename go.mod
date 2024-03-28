@@ -1,5 +1,5 @@
-module github.com/gonfva/docxlib
+module github.com/hohowt/docxlib
 
-go 1.16
+go 1.20
 
-require github.com/golang/glog v0.0.0-20210429001901-424d2337a529
+require github.com/golang/glog v1.1.2

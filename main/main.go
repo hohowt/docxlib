@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gonfva/docxlib"
+	"github.com/hohowt/docxlib"
 )
 
 var fileLocation *string

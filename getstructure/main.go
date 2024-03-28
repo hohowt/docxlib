@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	"github.com/gonfva/docxlib"
+	"github.com/hohowt/docxlib"
 )
 
 var fileLocation *string

@@ -4,6 +4,8 @@ Yet another library to read and write .docx (a.k.a. Microsoft Word documents or 
 
 ## Introduction
 
+Fork from [gonfva docxlib](https://github.com/gonfva/docxlib)
+
 As part of my work for [Basement Crowd](https://www.basementcrowd.com) and [FromCounsel](https://www.fromcounsel.com), we were in need of a basic library to manipulate (both read and write) Microsoft Word documents.
 
 The difference with other projects is the following:

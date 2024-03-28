@@ -4,7 +4,7 @@ package docxlib
 import (
 	"archive/zip"
 	"encoding/xml"
-	"io/ioutil"
+	"io"
 
 	"github.com/golang/glog"
 )
@@ -44,7 +44,6 @@ func processDoc(file *zip.File) (*Document, error) {
 		glog.Errorln("Error reading from internal zip file")
 		return nil, err
 	}
-	glog.V(0).Infoln("Doc:", string(filebytes))
 
 	doc := Document{
 		XMLW:    XMLNS_W,
@@ -55,7 +54,7 @@ func processDoc(file *zip.File) (*Document, error) {
 		glog.Errorln("Error unmarshalling doc", string(filebytes))
 		return nil, err
 	}
-	glog.V(0).Infoln("Paragraph", doc.Body.Paragraphs)
+
 	return &doc, nil
 }
 
@@ -66,7 +65,6 @@ func processRelations(file *zip.File) (*Relationships, error) {
 		glog.Errorln("Error reading from internal zip file")
 		return nil, err
 	}
-	glog.V(0).Infoln("Relations:", string(filebytes))
 
 	rels := Relationships{Xmlns: XMLNS_R}
 	err = xml.Unmarshal(filebytes, &rels)
@@ -84,5 +82,5 @@ func readZipFile(zf *zip.File) ([]byte, error) {
 		return nil, err
 	}
 	defer f.Close()
-	return ioutil.ReadAll(f)
+	return io.ReadAll(f)
 }

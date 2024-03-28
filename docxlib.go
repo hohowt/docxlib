@@ -2,6 +2,7 @@ package docxlib
 
 import (
 	"archive/zip"
+	"bytes"
 	"errors"
 	"io"
 )
@@ -21,18 +22,32 @@ func New() *DocxLib {
 	return emptyFile()
 }
 
+// parse bytes
+func ParseBytes(b []byte) (doc *DocxLib, err error) {
+	// io.ReaderAt, size int64
+	reader := bytes.NewReader(b)
+	zipReader, err := zip.NewReader(reader, int64(len(b)))
+	if err != nil {
+		return nil, err
+	}
+	doc, err = unpack(zipReader)
+	return
+}
+
 // Parse generates a new docx file in memory from a reader
 // You can it invoke from a file
-//		readFile, err := os.Open(FILE_PATH)
-//		if err != nil {
-//			panic(err)
-//		}
-//		fileinfo, err := readFile.Stat()
-//		if err != nil {
-//			panic(err)
-//		}
-//		size := fileinfo.Size()
-//		doc, err := docxlib.Parse(readFile, int64(size))
+//
+//	readFile, err := os.Open(FILE_PATH)
+//	if err != nil {
+//		panic(err)
+//	}
+//	fileinfo, err := readFile.Stat()
+//	if err != nil {
+//		panic(err)
+//	}
+//	size := fileinfo.Size()
+//	doc, err := docxlib.Parse(readFile, int64(size))
+//
 // but also you can invoke from a webform (BEWARE of trusting users data!!!)
 //
 //	func uploadFile(w http.ResponseWriter, r *http.Request) {
